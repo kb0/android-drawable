@@ -12,6 +12,11 @@ import android.view.View;
 
 
 public class Triangle extends View {
+    public static final int DIRECTION_TOP = 0;
+    public static final int DIRECTION_BOTTOM = 1;
+    public static final int DIRECTION_LEFT = 2;
+    public static final int DIRECTION_RIGHT = 3;
+
     // TODO: use a default from R.color...
     private int mFillColor = Color.BLACK;
 
@@ -19,6 +24,8 @@ public class Triangle extends View {
     private int mStrokeColor = Color.BLACK;
     // TODO: use a default from R.dimen...
     private float mStrokeWidth = 0;
+
+    private int mDirection = DIRECTION_TOP;
 
     private Path mTrianglePath = null;
 
@@ -49,6 +56,8 @@ public class Triangle extends View {
         mStrokeColor = a.getColor(R.styleable.Triangle_fillColor, mStrokeColor);
         mStrokeWidth = a.getDimension(R.styleable.Triangle_strokeWidth, mStrokeWidth);
 
+        mDirection = a.getInteger(R.styleable.Triangle_direction, mDirection);
+
         a.recycle();
 
         // Update TextPaint and text measurements from attributes
@@ -64,8 +73,7 @@ public class Triangle extends View {
         mTrianglePaintStroke.setStyle(Paint.Style.STROKE);
         mTrianglePaintStroke.setColor(getStrokeColor());
 
-        // @TODO implement mStrokeWidth setter
-        mTrianglePaintStroke.setStrokeWidth(mStrokeWidth);
+        mTrianglePaintStroke.setStrokeWidth(getStrokeWidth());
     }
 
     @Override
@@ -148,5 +156,21 @@ public class Triangle extends View {
         invalidateTextPaintAndMeasurements();
     }
 
-    // @TODO setter & getter for strokeWidth
+
+    /**
+     * Gets the fill color value.
+     * @return The fill color value.
+     */
+    public float getStrokeWidth() {
+        return mStrokeWidth;
+    }
+
+    /**
+     * Sets the triangle fill color.
+     * @param strokeWidth The fill color value to use.
+     */
+    public void setStrokeWidth(float strokeWidth) {
+        mStrokeWidth = strokeWidth;
+        invalidateTextPaintAndMeasurements();
+    }
 }
