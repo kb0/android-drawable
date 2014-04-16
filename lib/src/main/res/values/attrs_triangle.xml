@@ -4,5 +4,12 @@
 
         <attr name="strokeColor" format="color" />
         <attr name="strokeWidth" format="dimension" />
+
+        <attr name="direction" format="enum">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+            <enum name="left" value="2"/>
+            <enum name="right" value="3"/>
+        </attr>
     </declare-styleable>
 </resources>
