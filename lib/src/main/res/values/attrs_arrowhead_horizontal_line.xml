@@ -1,0 +1,11 @@
+<resources>
+    <declare-styleable name="ArrowheadHorizontalLine">
+        <attr name="lineColor" format="color" />
+        <attr name="lineWidth" format="dimension" />
+
+        <attr name="arrowheadColor" format="color" />
+
+        <attr name="startArrowhead" format="boolean" />
+        <attr name="endArrowhead" format="boolean" />
+    </declare-styleable>
+</resources>

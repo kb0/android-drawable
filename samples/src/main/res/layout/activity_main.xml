@@ -17,8 +17,8 @@
 
     <com.kb.android.drawable.Triangle
         android:background="#eee"
-        android:layout_width="100dp"
-        android:layout_height="200dp"
+        android:layout_width="50dp"
+        android:layout_height="100dp"
         android:paddingLeft="20dp"
         android:paddingTop="40dp"
         custom:fillColor="#ee1166"
@@ -26,12 +26,19 @@
 
     <com.kb.android.drawable.Triangle
         android:background="#eee"
-        android:layout_width="100dp"
-        android:layout_height="200dp"
+        android:layout_width="50dp"
+        android:layout_height="100dp"
         android:paddingLeft="20dp"
         android:paddingTop="40dp"
         custom:fillColor="#ee1166"
         custom:direction="left"
+        />
+
+    <com.kb.android.drawable.ArrowheadHorizontalLine
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        custom:lineWidth="2dp"
         />
 
 </LinearLayout>
