@@ -1,21 +1,22 @@
 apply plugin: 'android-library'
 apply plugin: 'maven'
 
+version project.versionName
+
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion project.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 19
-        versionCode 2014041701
-        versionName "1.0"
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+
+        versionCode project.versionCode
+        versionName project.versionName
     }
-    buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
+
+    lintOptions {
+        disable 'UnusedResources', 'ContentDescription'
     }
 }
 
@@ -36,10 +37,6 @@ uploadArchives {
 configurations {
     archives
 }
-
-version android.defaultConfig.versionCode
-group 'com.kb.android-drawable'
-
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'

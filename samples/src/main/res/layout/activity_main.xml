@@ -41,4 +41,12 @@
         custom:lineWidth="2dp"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TEST"
+        android:textColor="#ffffff"
+        android:background="@drawable/dotted"
+        />
+
 </LinearLayout>
