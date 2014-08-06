@@ -112,7 +112,7 @@ public class AxisHorizontal extends View {
             float majorLabelStep = (mMaximum - mMinimum) / (mMajorTicksCount + 1);
             float majorValueStep = contentWidth / (mMajorTicksCount + 1);
 
-            for(int i = 1; i < mMajorTicksCount + 1; i++) {
+            for(int i = 0; i < mMajorTicksCount + 2; i++) {
                 if (mMajorTicksAboveLength > 0 || mMajorTicksBelowLength > 0) {
                     Path tickPath = new Path();
                     tickPath.moveTo(paddingLeft + i * majorValueStep, majorTicksY1);
