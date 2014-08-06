@@ -20,27 +20,32 @@ android {
     }
 }
 
-dependencies {
-    compile 'com.android.support:appcompat-v7:19.+'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+configurations {
+    archives
+    deployerJars
 }
+
+def remoteServerUri = "scp://89.108.109.156/mnt/disk/develope/Projects.WWW/__cyber/repository/maven/"
+def remoteServerKey = "D:\\WORK\\My.Documents\\SSH.keys\\kb_art_navigator_ru.key"
+def remoteServerUser = "kb"
 
 uploadArchives {
     repositories {
         mavenDeployer {
+            configuration = configurations.deployerJars
+
             // @TODO extract local repository path to settings
-            repository url: 'file://' + new File('d:\\SOFT\\maven\\user\\repository\\').absolutePath
+            // repository url: 'file://' + new File('d:\\SOFT\\maven\\user\\repository\\').absolutePath
+            repository (url: remoteServerUri) {
+                authentication(userName: remoteServerUser, privateKey: remoteServerKey)
+            }
         }
     }
 }
 
-configurations {
-    archives
-}
-
 task sourcesJar(type: Jar) {
     classifier = 'sources'
-    from android.sourceSets.main.allSource
+    from android.sourceSets.main.java
 }
 
 artifacts {
@@ -48,3 +53,10 @@ artifacts {
 }
 
 task install(dependsOn: uploadArchives)
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:+'
+
+    // repositories
+    deployerJars "org.apache.maven.wagon:wagon-ssh:2.2"
+}
