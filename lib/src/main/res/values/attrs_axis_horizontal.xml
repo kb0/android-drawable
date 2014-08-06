@@ -1,0 +1,21 @@
+<resources>
+    <declare-styleable name="AxisHorizontal">
+        <attr name="axisColor" format="color" />
+        <attr name="axisWidth" format="dimension" />
+
+        <attr name="majorTicks" format="integer" />
+        <attr name="majorTicksAboveLength" format="dimension" />
+        <attr name="majorTicksBelowLength" format="dimension" />
+        <attr name="majorLabels" format="boolean" />
+        <attr name="majorLabelsFormat" format="string" />
+
+        <attr name="minorTicks" format="integer" />
+        <attr name="minorTicksAboveLength" format="dimension" />
+        <attr name="minorTicksBelowLength" format="dimension" />
+        <attr name="minorLabels" format="boolean" />
+        <attr name="minorLabelsFormat" format="string" />
+
+        <attr name="minimum" format="float" />
+        <attr name="maximum" format="float" />
+    </declare-styleable>
+</resources>
