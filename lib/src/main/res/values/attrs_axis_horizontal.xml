@@ -17,5 +17,10 @@
 
         <attr name="minimum" format="float" />
         <attr name="maximum" format="float" />
+
+        <attr name="mark" format="float" />
+        <attr name="markStrokeColor" format="color" />
+        <attr name="markStrokeWidth" format="dimension" />
+        <attr name="markDrawable" format="reference" />
     </declare-styleable>
 </resources>

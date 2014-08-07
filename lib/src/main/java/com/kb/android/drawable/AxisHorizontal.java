@@ -14,6 +14,7 @@ import android.view.View;
  * Created by kb on 06.08.2014.
  */
 public class AxisHorizontal extends View {
+    // @TODO create setters & getters
 
     private int mAxisLineColor = Color.BLACK;
     private float mAxisLineWidth = 1.0f;
@@ -33,6 +34,10 @@ public class AxisHorizontal extends View {
     private float mMinimum = 0.0f;
     private float mMaximum = 1.0f;
 
+    private float mMark = -1.0f;
+
+    private int mMarkStrokeColor = Color.RED;
+    private float mMarkStrokeWidth = 5.0f;
 
     public AxisHorizontal(Context context) {
         super(context);
@@ -74,6 +79,20 @@ public class AxisHorizontal extends View {
 
         mMinimum = a.getFloat(R.styleable.AxisHorizontal_minimum, mMinimum);
         mMaximum = a.getFloat(R.styleable.AxisHorizontal_maximum, mMaximum);
+
+        /*
+        @TODO add mark support
+        @TODO add multiply marks support
+        <attr name="mark" format="float" />
+        <attr name="markDrawable" format="reference" />
+         */
+
+        if (a.hasValue(R.styleable.AxisHorizontal_mark)) {
+            mMark = a.getFloat(R.styleable.AxisHorizontal_mark, mMark);
+
+            mMarkStrokeColor = a.getColor(R.styleable.AxisHorizontal_markStrokeColor, mMarkStrokeColor);
+            mMarkStrokeWidth = a.getDimension(R.styleable.AxisHorizontal_markStrokeWidth, mMarkStrokeWidth);
+        }
     }
 
     @Override
@@ -128,6 +147,20 @@ public class AxisHorizontal extends View {
         }
 
         // draw labels
+
+        // draw marks
+        if (mMark > mMinimum && mMark < mMaximum) {
+            int markLocation = pointToPixel(mMark, contentWidth);
+
+            Path tickPath = new Path();
+            tickPath.moveTo(paddingLeft + markLocation, paddingTop);
+            tickPath.lineTo(paddingLeft + markLocation, paddingTop + contentHeight);
+
+            Paint mark = new Paint(paint);
+            mark.setColor(mMarkStrokeColor);
+            mark.setStrokeWidth(mMarkStrokeWidth);
+            canvas.drawPath(tickPath, mark);
+        }
     }
 
     protected void drawHorizontalTicks(int ticksCount, Rect rect, Canvas canvas, Paint paint) {
@@ -138,5 +171,14 @@ public class AxisHorizontal extends View {
             tickPath.lineTo(rect.left + i * valueStep, rect.bottom);
             canvas.drawPath(tickPath, paint);
         }
+    }
+
+    protected int pointToPixel(float value, int length) {
+        if ((value > mMaximum) || (value < mMinimum)) {
+            return -1;
+        }
+
+        float percent = (value - mMinimum) / (mMaximum - mMinimum);
+        return (int) (length * percent);
     }
 }

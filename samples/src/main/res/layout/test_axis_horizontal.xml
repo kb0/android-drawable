@@ -13,4 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="20dp" />
 
+
+    <com.kb.android.drawable.AxisHorizontal
+        custom:majorTicks="3"
+        custom:mark="0.75"
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 </LinearLayout>
