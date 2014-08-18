@@ -10,17 +10,17 @@ import android.util.AttributeSet;
 /**
  * Created by kb on 06.08.2014.
  */
-public class AxisHorizontal extends AxisAbstract {
+public class AxisVertical extends AxisAbstract {
 
-    public AxisHorizontal(Context context) {
+    public AxisVertical(Context context) {
         super(context);
     }
 
-    public AxisHorizontal(Context context, AttributeSet attrs) {
+    public AxisVertical(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public AxisHorizontal(Context context, AttributeSet attrs, int defStyle) {
+    public AxisVertical(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -36,12 +36,12 @@ public class AxisHorizontal extends AxisAbstract {
         int contentWidth = getWidth() - paddingLeft - paddingRight;
         int contentHeight = getHeight() - paddingTop - paddingBottom;
 
-        int baseline = contentHeight / 2 + paddingTop;
-        int majorTicksY1 = (int) (baseline - mMajorTicksAboveLength * contentHeight / 2.0);
-        int majorTicksY2 = (int) (baseline + mMajorTicksBelowLength * contentHeight / 2.0);
+        int baseline = contentWidth / 2 + paddingLeft;
+        int majorTicksX1 = (int) (baseline - mMajorTicksAboveLength * contentWidth / 2.0);
+        int majorTicksX2 = (int) (baseline + mMajorTicksBelowLength * contentWidth / 2.0);
 
-        int minorTicksY1 = (int) (baseline - mMinorTicksAboveLength * contentHeight / 2.0);
-        int minorTicksY2 = (int) (baseline + mMinorTicksBelowLength * contentHeight / 2.0);
+        int minorTicksX1 = (int) (baseline - mMinorTicksAboveLength * contentWidth / 2.0);
+        int minorTicksX2 = (int) (baseline + mMinorTicksBelowLength * contentWidth / 2.0);
 
         Paint paint = new Paint();
         paint.setAntiAlias(true);
@@ -51,23 +51,23 @@ public class AxisHorizontal extends AxisAbstract {
 
         // draw line
         Path linePath = new Path();
-        linePath.moveTo(0 + paddingLeft, baseline);
-        linePath.lineTo(contentWidth + paddingLeft, baseline);
+        linePath.moveTo(baseline, 0 + paddingTop);
+        linePath.lineTo(baseline, contentHeight + paddingTop);
         canvas.drawPath(linePath, paint);
 
         // draw major & minors ticks
         if (mMajorTicksCount > 0) {
-            float majorValueStep = contentWidth / (mMajorTicksCount + 1);
+            float majorValueStep = contentHeight / (mMajorTicksCount + 1);
 
             for(int i = 0; i < mMajorTicksCount + 2; i++) {
                 if (mMajorTicksAboveLength > 0 || mMajorTicksBelowLength > 0) {
                     Path tickPath = new Path();
-                    tickPath.moveTo(paddingLeft + i * majorValueStep, majorTicksY1);
-                    tickPath.lineTo(paddingLeft + i * majorValueStep, majorTicksY2);
+                    tickPath.moveTo(majorTicksX1, paddingTop + i * majorValueStep);
+                    tickPath.lineTo(majorTicksX2, paddingTop + i * majorValueStep);
                     canvas.drawPath(tickPath, paint);
 
                     if (mMinorTicksCount > 0) {
-                        Rect rect = new Rect((int) (paddingLeft + (i - 1) * majorValueStep), minorTicksY1, (int) (paddingLeft + i * majorValueStep), minorTicksY2);
+                        Rect rect = new Rect(minorTicksX1, (int) (paddingTop + (i - 1) * majorValueStep), minorTicksX2, (int) (paddingTop + i * majorValueStep));
                         drawMinorTicks(mMinorTicksCount, rect, canvas, paint);
                     }
                 }
@@ -81,35 +81,35 @@ public class AxisHorizontal extends AxisAbstract {
             labelPaint.setTextSize(mLabelsSize);
 
             float majorLabelStep = (mMaximum - mMinimum) / (mMajorTicksCount + 2);
-            float majorValueStep = contentWidth / (mMajorTicksCount + 1);
+            float majorValueStep = contentHeight / (mMajorTicksCount + 1);
 
             for (int i = 0; i < mMajorTicksCount + 2; i++) {
                 String labelValue = String.format(mLabelsFormat, mMinimum + i * majorLabelStep);
-                float labelWidth = labelPaint.measureText(labelValue);
-                float labelX = paddingLeft + i * majorValueStep - labelWidth / 2.0f;
-                if (labelX < paddingLeft) {
-                    labelX = paddingLeft;
+                float labelHeight = labelPaint.getTextSize();
+                float labelY = paddingTop + i * majorValueStep - labelHeight / 2.0f;
+                if (labelY < paddingTop) {
+                    labelY = paddingTop;
                 }
-                if (labelX + labelWidth > contentWidth + paddingLeft) {
-                    labelX = paddingLeft + contentWidth - labelWidth;
+                if (labelY + labelHeight > contentHeight + paddingTop) {
+                    labelY = paddingTop + contentHeight - labelHeight;
                 }
-                canvas.drawText(labelValue, labelX, paddingTop + contentHeight * 0.99f, labelPaint);
+                canvas.drawText(labelValue, paddingLeft, labelY, labelPaint);
 
             }
         }
 
         // draw marks
         if (mMark > mMinimum && mMark < mMaximum) {
-            int markLocation = pointToPixel(mMark, contentWidth);
+            int markLocation = pointToPixel(mMark, contentHeight);
 
             Paint mark = new Paint(paint);
             mark.setColor(mMarkStrokeColor);
             mark.setStrokeWidth(mMarkStrokeWidth);
-            mark.setTextSize(contentHeight / 2.5f);
+            mark.setTextSize(18.0f);
 
             Path tickPath = new Path();
-            tickPath.moveTo(paddingLeft + markLocation, paddingTop);
-            tickPath.lineTo(paddingLeft + markLocation, paddingTop + contentHeight);
+            tickPath.moveTo(paddingLeft + 0, paddingTop + markLocation);
+            tickPath.lineTo(paddingLeft + contentHeight, paddingTop + markLocation);
 
             canvas.drawPath(tickPath, mark);
 
@@ -122,11 +122,11 @@ public class AxisHorizontal extends AxisAbstract {
 
     @Override
     protected void drawMinorTicks(int ticksCount, Rect rect, Canvas canvas, Paint paint) {
-        float valueStep = rect.width() / (ticksCount + 1);
+        float valueStep = rect.height() / (ticksCount + 1);
         for(int i = 1; i < ticksCount + 1; i++) {
             Path tickPath = new Path();
-            tickPath.moveTo(rect.left + i * valueStep, rect.top);
-            tickPath.lineTo(rect.left + i * valueStep, rect.bottom);
+            tickPath.moveTo(rect.left, rect.top + i * valueStep);
+            tickPath.lineTo(rect.right, rect.top + i * valueStep);
             canvas.drawPath(tickPath, paint);
         }
     }

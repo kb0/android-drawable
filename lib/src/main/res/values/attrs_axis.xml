@@ -1,24 +1,29 @@
 <resources>
-    <declare-styleable name="AxisHorizontal">
+    <declare-styleable name="Axis">
         <attr name="axisColor" format="color" />
         <attr name="axisWidth" format="dimension" />
 
         <attr name="majorTicks" format="integer" />
         <attr name="majorTicksAboveLength" format="dimension" />
         <attr name="majorTicksBelowLength" format="dimension" />
-        <attr name="majorLabels" format="boolean" />
-        <attr name="majorLabelsFormat" format="string" />
 
         <attr name="minorTicks" format="integer" />
         <attr name="minorTicksAboveLength" format="dimension" />
         <attr name="minorTicksBelowLength" format="dimension" />
-        <attr name="minorLabels" format="boolean" />
-        <attr name="minorLabelsFormat" format="string" />
+
+        <attr name="labels" format="boolean" />
+        <attr name="labelsFormat" format="string" />
+        <attr name="labelsColor" format="color" />
+        <attr name="labelsSize" format="dimension" />
 
         <attr name="minimum" format="float" />
         <attr name="maximum" format="float" />
 
         <attr name="mark" format="float" />
+
+        <attr name="markLabel" format="boolean" />
+        <attr name="markLabelFormat" format="string" />
+
         <attr name="markStrokeColor" format="color" />
         <attr name="markStrokeWidth" format="dimension" />
         <attr name="markDrawable" format="reference" />
